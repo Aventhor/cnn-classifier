@@ -12,13 +12,13 @@ def to_device(data, device):
         return [to_device(x, device) for x in data]
     return data.to(device, non_blocking=True)
 
-class DeviceDataLoader:
+class DeviceDataLoader():
     def __init__(self, dl, device):
         self.dl = dl
         self.device = device
-
+        
     def __iter__(self):
-        for b in self.dl:
+        for b in self.dl: 
             yield to_device(b, self.device)
 
     def __len__(self):

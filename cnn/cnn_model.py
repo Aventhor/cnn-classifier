@@ -26,11 +26,11 @@ class CnnModel(ImageClassificationBase):
             nn.MaxPool2d(2, 2), # output: 256 x 4 x 4
 
             nn.Flatten(), 
-            nn.Linear(256*4*4, 1024),
+            nn.Linear(36864, 4096),
             nn.ReLU(),
-            nn.Linear(1024, 512),
+            nn.Linear(4096, 512),
             nn.ReLU(),
-            nn.Linear(512, 10)
+            nn.Linear(512, 512)
         )
 
     def forward(self, xb):
