@@ -6,7 +6,7 @@ from .cnn_model import CnnModel
 from utils.device import to_device
 
 
-def predict_image(dataset: ImageFolder, img, model: CnnModel, device: torch.device):
+def predict_image(dataset: ImageFolder, img, model: CnnModel, device: torch.device) -> str:
     xb = to_device(img.unsqueeze(0), device)
     yb = model(xb)
     _, preds = torch.max(yb, dim=1)

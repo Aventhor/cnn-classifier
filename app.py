@@ -1,24 +1,12 @@
-import os
-from flask import Flask, request
+from flask import Flask
 
-from cnn.classifier import train, classificate_image
+from cnn.views import cnn
 
+def create_app():
+    app = Flask(__name__)
+    app.config.from_object('settings')
 
-app = Flask(__name__)
-app.config['UPLOAD_FOLDER'] = "./uploads"
+    app.register_blueprint(cnn)
 
-@app.route("/training", methods=['GET'])
-def train_model():
-    train()
-    pass
+    return app
 
-@app.route("/predicting", methods=['POST'])
-def classificate():
-    file = request.files['file']
-    if file:
-        filename = file.filename
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        img_class = classificate_image(filename)
-        return img_class
-
-    return 'file not provided'
